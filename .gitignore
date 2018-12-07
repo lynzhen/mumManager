@@ -1,24 +1,9 @@
-.DS_Store
+node_modules
+npm-debug.log
+start.sh
+.avoscloud
+.leancloud
 
-
-# IDE Files
-#-------------------------
-/nbproject/
-.idea/*
-
-## Sublime Text cache files
-*.tmlanguage.cache
-*.tmPreferences.cache
-*.stTheme.cache
-*.sublime-workspace
-*.sublime-project
-
-## Eclipse
-/.classpath
-/.buildpath
-/.settings
-/.project
-
-# Android
-/gen
-/bin
+# VIM
+*~
+*.swp
