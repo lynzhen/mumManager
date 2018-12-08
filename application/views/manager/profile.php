@@ -45,7 +45,7 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <button type="button"  @click="update" class="btn btn-primary">保存</button>
+                <button disabled="disabled" type="button"  @click="update" class="btn btn-primary">保存</button>
               </div>
               <!-- /.box-footer -->
             </form>

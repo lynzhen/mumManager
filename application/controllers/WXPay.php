@@ -1,8 +1,11 @@
 <?php
 require_once __DIR__ . '/../third_party/wxpay/WxPay.Api.php';
+require_once __DIR__ . '/../third_party/wxpay/PayNotifyCallBack.php';
+use \LeanCloud\Object;
 
 class WXPay extends BaseController {
-	// pay order
+	// pay order 
+	// 此函数即将废弃，已改用云函数实现，详见：http://blog.it577.net/index.php/archives/7/
 	function index() {
 		// 		初始化值对象
 		$input = new WxPayUnifiedOrder();
@@ -12,7 +15,7 @@ class WXPay extends BaseController {
 		$input->SetOut_trade_no($this->input->post('tradeNo'));
 		// 		费用应该是由小程序端传给服务端的，在用户下单时告知服务端应付金额，demo中取值是1，即1分钱
 		$input->SetTotal_fee($this->input->post('totalFee'));
-		$input->SetNotify_url("http://paysdk.weixin.qq.com/example/notify.php");
+		$input->SetNotify_url("https://lendoo.leanapp.cn/WXPay/notify");
 		$input->SetTrade_type("JSAPI");
 		// 		由小程序端传给服务端
 		$input->SetOpenid($this->input->post('openid'));
@@ -23,6 +26,7 @@ class WXPay extends BaseController {
 		echo $this->getJsApiParameters($order);
 	}
 
+	// 此函数即将废弃，已改用云函数实现，详见：http://blog.it577.net/
 	private function getJsApiParameters($UnifiedOrderResult)
 	{
 		if(!array_key_exists("appid", $UnifiedOrderResult)
@@ -42,8 +46,30 @@ class WXPay extends BaseController {
 		$parameters = json_encode($jsapi->GetValues());
 		return $parameters;
 	}
+
+	public function notify() {
+		//获取通知的数据
+		$xml = $GLOBALS['HTTP_RAW_POST_DATA'];
+		//如果返回成功则验证签名
+		$result = WxPayResults::Init($xml);
+		$notify = new PayNotifyCallBack();
+		$notify->Handle(false);
+		$returnValues = $notify->GetValues(); 
+		//交易成功
+		if(!empty($returnValues['return_code']) && $returnValues['return_code'] == 'SUCCESS'){  
+		    //商户逻辑处理，如订单状态更新为已支付  
+		    $out_trade_no = $result['out_trade_no'];
+		    // 通过订单id，将它改为已支付状态
+		    $order = Object::create('Order', $out_trade_no);
+		    $order->set('status', 1);
+		    $order->save();
+		}              
+		echo $notify->ToXml();//返回给微信确认 
+	}
+
 	
 	// get openid & session_key
+	// 此函数即将废弃，已改用云函数实现，详见：http://blog.it577.net/index.php/archives/7/
 	public function getSession() {
 		$code = $this->input->post('code');
 		$url = 'https://api.weixin.qq.com/sns/jscode2session?appid='.WxPayConfig::APPID.'&secret='.WxPayConfig::APPSECRET.'&js_code='.$code.'&grant_type=authorization_code';
@@ -52,13 +78,13 @@ class WXPay extends BaseController {
 	}
 
 	// get access token
-	private function getAccessToken() {
-		$url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.WxPayConfig::APPID.'&secret='.WxPayConfig::APPSECRET;
-            // header("Content-Type: application/json");
-            return file_get_contents($url);
-	}
+	// private function getAccessToken() {
+	// 	$url = 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.WxPayConfig::APPID.'&secret='.WxPayConfig::APPSECRET;
+ //            // header("Content-Type: application/json");
+ //            return file_get_contents($url);
+	// }
 
-	// 服务端生成图片
+	// 服务端生成图片，与微信支付无关，做分享二维码用
 	public function getQRCode() {
 		// 获取access_token
 		$accessTokenObject = json_decode(file_get_contents('https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.WxPayConfig::APPID.'&secret='.WxPayConfig::APPSECRET));

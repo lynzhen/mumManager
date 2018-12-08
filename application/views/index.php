@@ -6,6 +6,9 @@
 	<link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
 	<script src="//cdn.bootcss.com/jquery/1.11.1/jquery.js"></script>
 	<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<meta name="keywords" content="灵动云商,开源商城系统,微信小程序">
+	<meta name="description" content="灵动云商开源系统是一款基于LeanCloud开发的小程序，包括分类、购物车、微信登录、微信支付、收货地址、评价等基本模块">
 	<style>
 		/*分隔线*/
 		.line {
@@ -46,12 +49,12 @@
 		<h1 style="color: #fff;">灵动云商</h1>
 		<p>手机买好货利器</p>
 		<p>
-			<button type="button" class="btn btn-success btn-lg popover-show" style="width: 256px; height: 60px" title="小程序" data-container="body" data-placement="bottom" data-toggle="popover" data-html="true" data-trigger="hover focus click" data-content="<img src='<?=base_url('assets/images/qrcode.png')?>' />"><span class="glyphicon glyphicon-qrcode" style="margin-right: 5px;"></span> 扫一扫</button>
+			<button type="button" class="btn btn-success btn-lg popover-show" style="width: 256px; height: 60px" title="小程序" data-container="body" data-placement="bottom" data-toggle="popover" data-html="true" data-trigger="hover focus click" data-content="<img src='<?=base_url('assets/images/qrcode.jpg')?>' />"><span class="glyphicon glyphicon-qrcode" style="margin-right: 5px;"></span> 扫一扫</button>
         </p>
 	</div>
 	<hr class="line"/>
 	<footer>
-		<div class="text-center">&copy;2014-2017 灵犀网络 版权所有</div>
+		<div class="text-center">&copy;2014-2017 <a href="http://blog.it577.net/" target="_blank">灵犀网络</a> 版权所有</div>
 	</footer>
 	<script>
 		$(function () { 
