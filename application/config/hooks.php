@@ -24,7 +24,7 @@ Cloud::define("pay", function($params, $user) {
 	$input->SetOut_trade_no($params['tradeNo']);
 	// 		费用应该是由小程序端传给服务端的，在用户下单时告知服务端应付金额，demo中取值是1，即1分钱
 	$input->SetTotal_fee($params['totalFee']);
-	$input->SetNotify_url("https://laeser.leanapp.cn/WXPay/notify");
+	$input->SetNotify_url("https://mumsystem.leanapp.cn/WXPay/notify");
 	$input->SetTrade_type("JSAPI");
 	// 		由小程序端传给服务端
 	$input->SetOpenid($openid);
@@ -65,7 +65,7 @@ class CIEngine extends LeanEngine {
 
 $hook['pre_system'] = function() {
 	// 参数依次为 AppId, AppKey, MasterKey
-	Client::initialize("7tm1OFlNlmLFukegUhmm4uDU-gzGzoHsz", "XG4FRumQWJ7mNkFIral0ttvj" ,"bx7mYx7UTLW35cEawr8cxCK2");
+	Client::initialize("YFzggloQWOnyQPwmXGnRHnGW-gzGzoHsz", "5pJ2hDHl7FOTWElqoEADa6kR" ,"bfQPDGLeIM8jFBakOJpPgoTA");
 	Client::useMasterKey(true);
 	Client::setStorage(new CookieStorage());
 	$engine = new CIEngine();
