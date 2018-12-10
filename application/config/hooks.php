@@ -13,10 +13,10 @@ use \LeanCloud\Storage\CookieStorage;
  */
 
 // /1.1/functions/sayHello
-Cloud::define("pay", function($params, $openid) {
+Cloud::define("pay", function($params, $user) {
 	// var_dump($params);
 	// var_dump($user);
-	// $openid = $user->get('authData')["lc_weapp"]["openid"];
+	$openid = $user->get('authData')["lc_weapp"]["openid"];
 	// $openid = $user->get('openid');
 	// 		初始化值对象
 	$input = new WxPayUnifiedOrder();
