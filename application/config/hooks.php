@@ -42,6 +42,8 @@ Cloud::define("pay", function($params, $user) {
 });
 
 function getJsApiParameters($UnifiedOrderResult) {
+	var_dump($UnifiedOrderResult);
+	die;
 	if(!array_key_exists("appid", $UnifiedOrderResult)
 	|| !array_key_exists("prepay_id", $UnifiedOrderResult)
 	|| $UnifiedOrderResult['prepay_id'] == "")
