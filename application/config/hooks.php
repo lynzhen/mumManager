@@ -17,7 +17,7 @@ Cloud::define("pay", function($params, $user) {
 	// var_dump($params);
 	// var_dump($user);
 	$openid = $user->get('authData')["lc_weapp"]["openid"];
-	var_dump($openid);
+	// var_dump($openid);
 	// $openid = $user->get('openid');
 	// 		初始化值对象
 	$input = new WxPayUnifiedOrder();
@@ -31,13 +31,14 @@ Cloud::define("pay", function($params, $user) {
 	$input->SetTrade_type("JSAPI");
 	// 		由小程序端传给服务端
 	$input->SetOpenid($openid);
+	var_dump($input);
 	// 		向微信统一下单，并返回order，它是一个array数组
 	$order = WxPayApi::unifiedOrder($input);
 	// 		json化返回给小程序端
 	header("Content-Type: application/json");
 	var_dump($order);
-	// return getJsApiParameters($order);
-	return "hello {$params['name']}";
+	return getJsApiParameters($order);
+	// return "hello {$params['body']}";
 });
 
 function getJsApiParameters($UnifiedOrderResult) {
