@@ -13,7 +13,7 @@ use \LeanCloud\Storage\CookieStorage;
  */
 
 // /1.1/functions/sayHello
-Cloud::define("pay", function($params, $user) {
+Cloud::define("pay", function($params) {
 	// var_dump($params);
 	// var_dump($user);
 	$openid = $user->get('authData')["lc_weapp"]["openid"];
@@ -31,14 +31,14 @@ Cloud::define("pay", function($params, $user) {
 	$input->SetTrade_type("JSAPI");
 	// 		由小程序端传给服务端
 	$input->SetOpenid($openid);
-	var_dump($input);
+	// var_dump($input);
 	// 		向微信统一下单，并返回order，它是一个array数组
 	$order = WxPayApi::unifiedOrder($input);
 	// 		json化返回给小程序端
 	header("Content-Type: application/json");
 	header("Content-Type: text/html;charset=utf-8");
 
-	var_dump($order);
+	// var_dump($order);
 	return getJsApiParameters($order);
 	// return "hello {$params['body']}";
 });
@@ -60,7 +60,7 @@ function getJsApiParameters($UnifiedOrderResult) {
 	$jsapi->SetSignType("MD5");
 	$jsapi->SetPaySign($jsapi->MakeSign());
 	$parameters = json_encode($jsapi->GetValues());
-	var_dump($parameters);
+	// var_dump($parameters);
 	return $parameters;
 }
 
