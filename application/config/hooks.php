@@ -36,14 +36,15 @@ Cloud::define("pay", function($params, $user) {
 	$order = WxPayApi::unifiedOrder($input);
 	// 		json化返回给小程序端
 	header("Content-Type: application/json");
+	header("Content-Type: text/html;charset=utf-8");
+
 	var_dump($order);
 	return getJsApiParameters($order);
 	// return "hello {$params['body']}";
 });
 
 function getJsApiParameters($UnifiedOrderResult) {
-	var_dump($UnifiedOrderResult);
-	die;
+
 	if(!array_key_exists("appid", $UnifiedOrderResult)
 	|| !array_key_exists("prepay_id", $UnifiedOrderResult)
 	|| $UnifiedOrderResult['prepay_id'] == "")
@@ -59,6 +60,7 @@ function getJsApiParameters($UnifiedOrderResult) {
 	$jsapi->SetSignType("MD5");
 	$jsapi->SetPaySign($jsapi->MakeSign());
 	$parameters = json_encode($jsapi->GetValues());
+	var_dump($parameters);
 	return $parameters;
 }
 
