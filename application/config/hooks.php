@@ -42,7 +42,7 @@ function getJsApiParameters($UnifiedOrderResult) {
 	|| !array_key_exists("prepay_id", $UnifiedOrderResult)
 	|| $UnifiedOrderResult['prepay_id'] == "")
 	{
-		throw new WxPayException("参数错误");
+		throw new WxPayException("参数错误2333");
 	}
 	$jsapi = new WxPayJsApiPay();
 	$jsapi->SetAppid($UnifiedOrderResult["appid"]);
