@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../third_party/wxpay/WxPay.Api.php';
 require_once __DIR__ . '/../third_party/wxpay/PayNotifyCallBack.php';
-use \LeanCloud\Object;
+use \LeanCloud\LeanObject;
 
 class WXPay extends BaseController {
 	// pay order 
@@ -15,7 +15,7 @@ class WXPay extends BaseController {
 		$input->SetOut_trade_no($this->input->post('tradeNo'));
 		// 		费用应该是由小程序端传给服务端的，在用户下单时告知服务端应付金额，demo中取值是1，即1分钱
 		$input->SetTotal_fee($this->input->post('totalFee'));
-		$input->SetNotify_url("https://mumsystem.leanapp.cn/WXPay/notify");
+		$input->SetNotify_url("https://mike.leanapp.cn/WXPay/notify");
 		$input->SetTrade_type("JSAPI");
 		// 		由小程序端传给服务端
 		$input->SetOpenid($this->input->post('openid'));
@@ -60,7 +60,7 @@ class WXPay extends BaseController {
 		    //商户逻辑处理，如订单状态更新为已支付  
 		    $out_trade_no = $result['out_trade_no'];
 		    // 通过订单id，将它改为已支付状态
-		    $order = Object::create('Order', $out_trade_no);
+		    $order = LeanObject::create('Order', $out_trade_no);
 		    $order->set('status', 1);
 		    $order->save();
 		}              

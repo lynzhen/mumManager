@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>灵动云商城后台管理系统</title>
+  <title>芈客采购平台</title>
   <!-- Add to homescreen for Safari on iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="white">
@@ -45,9 +45,9 @@
       <!-- Logo -->
       <a href="<?=base_url('/')?>" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
-        <span class="logo-mini">灵动</span>
+        <span class="logo-mini">芈客</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>灵动</b>云商城</span>
+        <span class="logo-lg"><b>芈客</b>采购平台</span>
       </a>
       <!-- Header Navbar: style can be found in header.less -->
       <nav class="navbar navbar-static-top">
@@ -301,7 +301,18 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
           <li class="header">系统菜单</li>
-          <li class="<?=strpos(uri_string(), 'goods') !== false || strpos(uri_string(), 'category') !== false ? 'active' : ''?> treeview">
+          <li class="<?=strpos(uri_string(), 'program') !== false || strpos(uri_string(), 'program') !== false ? 'active' : ''?> treeview">
+            <a href="#">
+              <i class="fa fa-dashboard"></i> <span>小程序管理</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="<?=uri_string() == 'program/banner' ? 'active' : ''?>"><a href="../program/banner"><i class="fa fa-list-ul"></i> 轮播图设置</a></li>
+            </ul>
+          </li>
+          <li class="<?=strpos(uri_string(), 'goods') !== false || strpos(uri_string(), 'goods') !== false ? 'active' : ''?> treeview">
             <a href="#">
               <i class="fa fa-dashboard"></i> <span>商品管理</span>
               <span class="pull-right-container">
@@ -310,7 +321,82 @@
             </a>
             <ul class="treeview-menu">
               <li class="<?=uri_string() == 'goods/index' ? 'active' : ''?>"><a href="../goods/index"><i class="fa fa-list-ul"></i> 商品列表</a></li>
-              <li class="<?=uri_string() == 'category/index' ? 'active' : ''?>"><a href="../category/index"><i class="fa fa-sitemap"></i> 商品分类</a></li>
+              <li class="<?=uri_string() == 'goods/hot' ? 'active' : ''?>"><a href="../goods/hot"><i class="fa fa-sitemap"></i> 商品热销</a></li>
+              <li class="<?=uri_string() == 'goods/hot' ? 'active' : ''?>"><a href="../category/index"><i class="fa fa-sitemap"></i> 商品分类</a></li>
+            </ul>
+          </li>
+          <li class="<?=strpos(uri_string(), 'shop') !== false || strpos(uri_string(), 'shop') !== false ? 'active' : ''?> treeview">
+            <a href="#">
+              <i class="fa fa-dashboard"></i> <span>商家管理</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="<?=uri_string() == 'shop/join' ? 'active' : ''?>"><a href="../shop/join"><i class="fa fa-list-ul"></i> 商家入驻</a></li>
+              <li class="<?=uri_string() == 'shop/address' ? 'active' : ''?>"><a href="../shop/address"><i class="fa fa-sitemap"></i> 商家地址审核</a></li>
+              <li class="<?=uri_string() == 'shop/blacklist' ? 'active' : ''?>"><a href="../shop/blacklist"><i class="fa fa-sitemap"></i> 商家黑名单</a></li>
+            </ul>
+          </li>
+          <li class="<?=strpos(uri_string(), 'mikeshop') !== false || strpos(uri_string(), 'mikeshop') !== false ? 'active' : ''?> treeview">
+            <a href="#">
+              <i class="fa fa-dashboard"></i> <span>芈客门店</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="<?=uri_string() == 'mikeshop/index' ? 'active' : ''?>"><a href="../mikeshop/index"><i class="fa fa-list-ul"></i> 门店列表</a></li>
+              <li class="<?=uri_string() == 'mikeshop/suppliers' ? 'active' : ''?>"><a href="../mikeshop/suppliers"><i class="fa fa-list-ul"></i> 供应商列表</a></li>
+            </ul>
+          </li>
+          <li class="<?=strpos(uri_string(), 'suppliers') !== false || strpos(uri_string(), 'suppliers') !== false ? 'active' : ''?> treeview">
+            <a href="#">
+              <i class="fa fa-dashboard"></i> <span>供应商</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="<?=uri_string() == 'suppliers/index' ? 'active' : ''?>"><a href="../suppliers/index"><i class="fa fa-list-ul"></i> 供应商列表</a></li>
+            </ul>
+          </li>
+          <li class="<?=strpos(uri_string(), 'power') !== false || strpos(uri_string(), 'power') !== false ? 'active' : ''?> treeview">
+            <a href="#">
+              <i class="fa fa-dashboard"></i> <span>权限管理</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="<?=uri_string() == 'power/apart' ? 'active' : ''?>"><a href="../power/apart"><i class="fa fa-list-ul"></i> 部门管理</a></li>
+              <li class="<?=uri_string() == 'power/index' ? 'active' : ''?>"><a href="../power/index"><i class="fa fa-sitemap"></i> 权限管理</a></li>
+              <li class="<?=uri_string() == 'power/staff' ? 'active' : ''?>"><a href="../power/staff"><i class="fa fa-sitemap"></i> 人员管理</a></li>
+            </ul>
+          </li>
+          <li class="<?=strpos(uri_string(), 'report') !== false || strpos(uri_string(), 'report') !== false ? 'active' : ''?> treeview">
+            <a href="#">
+              <i class="fa fa-dashboard"></i> <span>报表管理</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="<?=uri_string() == 'report/order' ? 'active' : ''?>"><a href="../report/order"><i class="fa fa-list-ul"></i> 订单报表</a></li>
+              <li class="<?=uri_string() == 'report/goods' ? 'active' : ''?>"><a href="../report/goods"><i class="fa fa-sitemap"></i> 商品报表</a></li>
+              <li class="<?=uri_string() == 'report/stock' ? 'active' : ''?>"><a href="../report/stock"><i class="fa fa-sitemap"></i> 库存报表</a></li>
+            </ul>
+          </li>
+          <li class="<?=strpos(uri_string(), 'warehouse') !== false || strpos(uri_string(), 'warehouse') !== false ? 'active' : ''?> treeview">
+            <a href="#">
+              <i class="fa fa-dashboard"></i> <span>仓库管理</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li class="<?=uri_string() == 'warehouse/realtime' ? 'active' : ''?>"><a href="../warehouse/realtime"><i class="fa fa-list-ul"></i> 实时库存</a></li>
+              <li class="<?=uri_string() == 'warehouse/shipping' ? 'active' : ''?>"><a href="../warehouse/shipping"><i class="fa fa-sitemap"></i> 出库管理</a></li>
             </ul>
           </li>
           <li class="<?=strpos(uri_string(), 'order') !== false ? 'active' : ''?> treeview">
@@ -323,6 +409,7 @@
             </a>
             <ul class="treeview-menu">
               <li class="<?=uri_string() == 'order/index' ? 'active' : ''?>"><a href="../order/index"><i class="fa fa-shopping-bag"></i> 订单列表</a></li>
+              <li class="<?=uri_string() == 'order/deliver' ? 'active' : ''?>"><a href="../order/deliver"><i class="fa fa-sitemap"></i> 配送管理</a></li>
             </ul>
           </li>
           <li class="<?=strpos(uri_string(), 'manager') !== false ? 'active' : ''?> treeview">
@@ -335,7 +422,7 @@
             </a>
             <ul class="treeview-menu">
               <li class="<?=uri_string() == 'manager/profile' ? 'active' : ''?>"><a href="../manager/profile"><i class="fa fa-user"></i> 修改资料</a></li>
-              <li class="<?=uri_string() == 'praise/index' ? 'active' : ''?>"><a href="../donate/index"><i class="fa fa-user"></i> 赞赏记录</a></li>
+              <li class="<?=uri_string() == 'donate/index' ? 'active' : ''?>"><a href="../donate/index"><i class="fa fa-user"></i> 赞赏记录</a></li>
             </ul>
           </li>
         </ul>

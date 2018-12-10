@@ -35,33 +35,90 @@
             <div class="box-body">
               <form id="edit-form" class="form-horizontal" action="save" method="post">
                 <div class="form-group">
-                  <label for="title" class="col-sm-2 control-label">标题</label>
+                  <label for="mc" class="col-sm-2 control-label">名称</label>
                   <div class="col-sm-8">
-                    <input type="text" class="form-control" name="title" id="title" placeholder="请输入商品的标题" value="">
+                    <input type="text" class="form-control" name="mc" id="mc" placeholder="名称" value="">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="title" class="col-sm-2 control-label">分类</label>
+                  <label for="longmc" class="col-sm-2 control-label">长名称</label>
                   <div class="col-sm-8">
-                    <select class="form-control select2" style="width: 100%;" name="category" id="category">
-                      <option></option>
-                      <?php foreach ($categories as $category):?>
-                        <optgroup label="<?=$category->get('title')?>">
-                          <?php foreach ($category->children as $child):?>
-                            <option value="<?=$child->get('objectId')?>"><?=$child->get('title')?></option>
-                          <?php endforeach;?>
-                        </optgroup>
-                      <?php endforeach;?>
-                    </select>
+                    <input type="text" class="form-control" name="longmc" id="longmc" placeholder="长名称" value="">
+                  </div>
+                </div> 
+                <div class="form-group">
+                  <label for="flno" class="col-sm-2 control-label">分类号</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="flno" id="flno" placeholder="分类号" value="">
                   </div>
                 </div>
                 <div class="form-group">
-                  <label for="price" class="col-sm-2 control-label">价格</label>
+                  <label for="spgg" class="col-sm-2 control-label">商品规格</label>
                   <div class="col-sm-8">
-                    <input type="number" class="form-control" name="price" id="price" placeholder="0.0" step="0.01" value="">
+                    <input type="text" class="form-control" name="spgg" id="spgg" placeholder="商品规格" value="">
                   </div>
                 </div>
                 <div class="form-group">
+                  <label for="spno" class="col-sm-2 control-label">商品编号</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="spno" id="spno" placeholder="商品编号" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="package" class="col-sm-2 control-label">包装含量</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="package" id="package" placeholder="包装含量" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="bzdw" class="col-sm-2 control-label">单位</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="bzdw" id="bzdw" placeholder="单位" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="lsj" class="col-sm-2 control-label">零售价</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="lsj" id="lsj" placeholder="零售价" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="dssl" class="col-sm-2 control-label">库存</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="dssl" id="dssl" placeholder="库存" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="pfj" class="col-sm-2 control-label">批发价</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="pfj" id="pfj" placeholder="批发价" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="bz" class="col-sm-2 control-label">条码</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="bz" id="bz" placeholder="条码" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="mrcs" class="col-sm-2 control-label">供货商号</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="mrcs" id="mrcs" placeholder="供货商号" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="kcsl" class="col-sm-2 control-label">柜台存货数</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="kcsl" id="kcsl" placeholder="柜台存货数" value="">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="jhj" class="col-sm-2 control-label">进货价</label>
+                  <div class="col-sm-8">
+                    <input type="text" class="form-control" name="jhj" id="jhj" placeholder="进货价" value="">
+                  </div>
+                </div>
+                <!-- <div class="form-group">
                   <label for="isHot" class="col-sm-2 control-label">推荐</label>
                   <div class="col-sm-8">
                     <div class="btn-group" id="isHot" data-toggle="buttons">
@@ -86,7 +143,7 @@
                       </label>
                     </div>
                   </div>
-                </div>
+                </div> -->
                 <!-- upload images -->
                 <div class="form-group">
                   <label for="images" class="col-sm-2 control-label">产品图</label>
@@ -153,47 +210,96 @@
            invalid: 'glyphicon glyphicon-remove',
            validating: 'glyphicon glyphicon-refresh'
          },
-         fields: {
-          title: {
-           validators: {
-             notEmpty: {
-               message: '标题不能为空'
-             }
-           }
-         },
-         price: {
-           validators: {
-             notEmpty: {
-               message: '价格不能为空'
-             }
-           }
-         },
-         category: {
-           validators: {
-             notEmpty: {
-               message: '分类不能为空'
-             }
-           }
-         },
-         images: {
-           validators: {
-             regexp: {
-                 regexp: /^\[.+\]$/,
-                 message: '请上传产品图'
-             }
-           }
-         },
-         detail: {
-           validators: {
-             regexp: {
-                 regexp: /^\[.+\]$/,
-                 message: '请上传描述图'
-             }
-           }
-         }
-       }
+        fields: {
+          mc: {
+            validators: {
+              notEmpty: {
+                message: '商品名称不能为空'
+              }
+            }
+          },
+          flno: {
+            validators: {
+              notEmpty: {
+                message: '分类号不能为空'
+              }
+            }
+          },
+          spgg: {
+            validators: {
+              notEmpty: {
+                message: '商品规格不能为空'
+              }
+            }
+          },
+          spno: {
+            validators: {
+              notEmpty: {
+                message: '商品编号不能为空'
+              }
+            }
+          },
+          package: {
+            validators: {
+              notEmpty: {
+                message: '包装含量不能为空'
+              }
+            }
+          },
+          bw: {
+            validators: {
+              notEmpty: {
+                message: '商品单位不能为空'
+              }
+            }
+          },
+          lsj: {
+            validators: {
+              notEmpty: {
+                message: '零售价不能为空'
+              }
+            }
+          },
+          pfj: {
+            validators: {
+              notEmpty: {
+                message: '批发价不能为空'
+              }
+            }
+          },
+          bz: {
+            validators: {
+              notEmpty: {
+                message: '条码不能为空'
+              }
+            }
+          },
+          jhj: {
+            validators: {
+              notEmpty: {
+                message: '进货价不能为空'
+              }
+            }
+          },
+          images: {
+            validators: {
+              regexp: {
+                  regexp: /^\[.+\]$/,
+                  message: '请上传产品图'
+              }
+            }
+          },
+          detail: {
+            validators: {
+              regexp: {
+                  regexp: /^\[.+\]$/,
+                  message: '请上传描述图'
+              }
+            }
+          }
+        }
       });
-      ;
+      
       var bootstrapValidator = $("#edit-form").data('bootstrapValidator');
       bootstrapValidator.validate();
       if(bootstrapValidator.isValid()) {
@@ -205,15 +311,31 @@
           sweetAlert("提示", "请上传描述图", "error");
           return;
         }
-       console.log('valid');
+      //  console.log('valid');
+      //  var theprice = $("#price").val();
+      //  console.log(typeof(theprice));
+      //  var floatprice = parseFloat($('#price').val());
+      //  console.log(typeof(floatprice));
+      //  var 
        $.post(
           'save',
           {
-            title: $('#title').val(),
-            category: $('#category').val(),
-            price: $('#price').val(),
-            isNew: $('#isNew .active input').val(),
-            isHot: $('#isHot .active input').val(),
+            mc: $('#mc').val(),
+            longmc: $('#longmc').val(),
+            flno: $('#flno').val(),
+            spgg: $('#spgg').val(),
+            spno: $('#spno').val(),
+            package: $('#package').val(),
+            bzdw: $('#dw').val(),
+            lsj: $('#lsj').val(),
+            dssl: $('#dssl').val(),
+            pfj: $('#pfj').val(),
+            bz: $('#bz').val(),
+            mrcs: $('#mrcs').val(),
+            kcsl: $('#kcsl').val(),
+            jhj: $('#jhj').val(),
+            // isNew: $('#isNew .active input').val(),
+            // isHot: $('#isHot .active input').val(),
             images: $('#images').val(),
             detail: $('#detail').val()
           },
@@ -221,8 +343,8 @@
             sweetAlert("提示", response.message, "success");
             if (response.success) {
               $('#edit-form').data('bootstrapValidator').resetForm();
-              $('#title').val("");
-              $('#price').val("");
+              $('#mc').val("");
+              $('#lsj').val("");
               $('#images').val("[]");
               $('#detail').val("[]");
             }
