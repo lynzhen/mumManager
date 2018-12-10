@@ -17,6 +17,7 @@ Cloud::define("pay", function($params, $user) {
 	// var_dump($params);
 	// var_dump($user);
 	$openid = $user->get('authData')["lc_weapp"]["openid"];
+	var_dump($openid);
 	// $openid = $user->get('openid');
 	// 		初始化值对象
 	$input = new WxPayUnifiedOrder();
@@ -34,9 +35,9 @@ Cloud::define("pay", function($params, $user) {
 	$order = WxPayApi::unifiedOrder($input);
 	// 		json化返回给小程序端
 	header("Content-Type: application/json");
-	// var_dump($order);
-	return getJsApiParameters($order);
-	// return "hello {$params['name']}";
+	var_dump($order);
+	// return getJsApiParameters($order);
+	return "hello {$params['name']}";
 });
 
 function getJsApiParameters($UnifiedOrderResult) {
