@@ -13,12 +13,9 @@ use \LeanCloud\Storage\CookieStorage;
  */
 
 // /1.1/functions/sayHello
-Cloud::define("pay", function($params) {
-	// var_dump($params);
+Cloud::define("pay", function($params, $user) {
 	// var_dump($user);
 	$openid = $user->get('authData')["lc_weapp"]["openid"];
-	// var_dump($openid);
-	// $openid = $user->get('openid');
 	// 		初始化值对象
 	$input = new WxPayUnifiedOrder();
 	// 		文档提及的参数规范：商家名称-销售商品类目
@@ -31,16 +28,12 @@ Cloud::define("pay", function($params) {
 	$input->SetTrade_type("JSAPI");
 	// 		由小程序端传给服务端
 	$input->SetOpenid($openid);
-	// var_dump($input);
 	// 		向微信统一下单，并返回order，它是一个array数组
 	$order = WxPayApi::unifiedOrder($input);
 	// 		json化返回给小程序端
 	header("Content-Type: application/json");
-	header("Content-Type: text/html;charset=utf-8");
-
-	// var_dump($order);
 	return getJsApiParameters($order);
-	// return "hello {$params['body']}";
+	// return "hello {$params['name']}";
 });
 
 function getJsApiParameters($UnifiedOrderResult) {
