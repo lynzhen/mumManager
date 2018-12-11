@@ -57,12 +57,12 @@ class WXPay extends BaseController {
 		$returnValues = $notify->GetValues(); 
 		//交易成功
 		if(!empty($returnValues['return_code']) && $returnValues['return_code'] == 'SUCCESS'){  
-		    //商户逻辑处理，如订单状态更新为已支付  
-		    $out_trade_no = $result['out_trade_no'];
-		    // 通过订单id，将它改为已支付状态
-		    $order = LeanObject::create('Order', $out_trade_no);
-		    $order->set('status', 1);
-		    $order->save();
+			//商户逻辑处理，如订单状态更新为已支付  
+			$out_trade_no = $result['out_trade_no'];
+			// 通过订单id，将它改为已支付状态
+			$order = Object::create('Order', $out_trade_no);
+			$order->set('status', 1);
+			$order->save();
 		}              
 		echo $notify->ToXml();//返回给微信确认 
 	}
