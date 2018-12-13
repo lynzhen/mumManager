@@ -36,6 +36,138 @@ Cloud::define("pay", function($params, $user) {
 	// return "hello {$params['name']}";
 });
 
+
+// ----------生成小程序码
+Cloud::define("getImg", function($params, $user) {
+	$ACCESS_TOKEN=$this->getWxAccessToken();
+	$url="https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=".$ACCESS_TOKEN['access_token'];
+	$post_data=
+	array(
+		'page'=>'pages/caregory/index',
+		'scene'=>'34,S853EE4QRP'//34%2CS853EE4QRP
+	);
+	$post_data=json_encode($post_data);
+    $data=$this->send_post($url,$post_data);
+	$result=$this->data_uri($data,'image/png');
+	return '<image src='.$result.'></image>';
+});
+
+function getWxAccessToken(){
+    $appid='wxbde3a54158b3bf14';
+    $appsecret='6008eb5ab12af1e8e784e64d58e7f8e3';
+    if(Session::get('access_token_'.$appid) && Session::get('expire_time_'.$appid)>time()){
+        return Session::get('access_token_'.$appid);
+    }else{
+        $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$appid."&secret=".$appsecret;
+        $access_token = $this->makeRequest($url);
+        $access_token = json_decode($access_token['result'],true);
+        Session::set('access_token_'.$appid,$access_token);
+        Session::set('expire_time_'.$appid,time()+7000);
+        return $access_token;
+    }
+}
+// /**
+//  * 发起http请求
+//  * @param string $url 访问路径
+//  * @param array $params 参数，该数组多于1个，表示为POST
+//  * @param int $expire 请求超时时间
+//  * @param array $extend 请求伪造包头参数
+//  * @param string $hostIp HOST的地址
+//  * @return array    返回的为一个请求状态，一个内容
+//  */
+
+function makeRequest($url, $params = array(), $expire = 0, $extend = array(), $hostIp = '')
+{
+    if (empty($url)) {
+        return array('code' => '100');
+    }
+
+    $_curl = curl_init();
+    $_header = array(
+        'Accept-Language: zh-CN',
+        'Connection: Keep-Alive',
+        'Cache-Control: no-cache'
+    );
+    // 方便直接访问要设置host的地址
+    if (!empty($hostIp)) {
+        $urlInfo = parse_url($url);
+        if (empty($urlInfo['host'])) {
+            $urlInfo['host'] = substr(DOMAIN, 7, -1);
+            $url = "http://{$hostIp}{$url}";
+        } else {
+            $url = str_replace($urlInfo['host'], $hostIp, $url);
+        }
+        $_header[] = "Host: {$urlInfo['host']}";
+    }
+
+    // 只要第二个参数传了值之后，就是POST的
+    if (!empty($params)) {
+        curl_setopt($_curl, CURLOPT_POSTFIELDS, http_build_query($params));
+        curl_setopt($_curl, CURLOPT_POST, true);
+    }
+
+    if (substr($url, 0, 8) == 'https://') {
+        curl_setopt($_curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($_curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+    }
+    curl_setopt($_curl, CURLOPT_URL, $url);
+    curl_setopt($_curl, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($_curl, CURLOPT_USERAGENT, 'API PHP CURL');
+    curl_setopt($_curl, CURLOPT_HTTPHEADER, $_header);
+
+    if ($expire > 0) {
+        curl_setopt($_curl, CURLOPT_TIMEOUT, $expire); // 处理超时时间
+        curl_setopt($_curl, CURLOPT_CONNECTTIMEOUT, $expire); // 建立连接超时时间
+    }
+
+    // 额外的配置
+    if (!empty($extend)) {
+        curl_setopt_array($_curl, $extend);
+    }
+
+    $result['result'] = curl_exec($_curl);
+    $result['code'] = curl_getinfo($_curl, CURLINFO_HTTP_CODE);
+    $result['info'] = curl_getinfo($_curl);
+    if ($result['result'] === false) {
+        $result['result'] = curl_error($_curl);
+        $result['code'] = -curl_errno($_curl);
+    }
+
+    curl_close($_curl);
+    return $result;
+}
+
+//  /**
+//  * 消息推送http
+//  * @param $url
+//  * @param $post_data
+//  * @return bool|string
+//  */
+function send_post( $url, $post_data ) {
+	$options = array(
+		'http' => array(
+			'method'  => 'POST',
+			'header'  => 'Content-type:application/json',
+			//header 需要设置为 JSON
+			'content' => $post_data,
+			'timeout' => 60
+			//超时时间
+		)
+	);
+	$context = stream_context_create( $options );
+	$result = file_get_contents( $url, false, $context );
+	return $result;
+}
+
+//二进制转图片image/png
+function data_uri($contents, $mime)
+{
+    $base64   = base64_encode($contents);
+    return ('data:' . $mime . ';base64,' . $base64);
+}
+
+//----------生成小程序码end
+
 function getJsApiParameters($UnifiedOrderResult) {
 
 	if(!array_key_exists("appid", $UnifiedOrderResult)
