@@ -47,8 +47,8 @@ Cloud::define("getImg", function($params, $user) {
 		'scene'=>'34,S853EE4QRP'//34%2CS853EE4QRP
 	);
 	$post_data=json_encode($post_data);
-    $data=$this->send_post($url,$post_data);
-	$result=$this->data_uri($data,'image/png');
+    $data=send_post($url,$post_data);
+	$result=data_uri($data,'image/png');
 	return '<image src='.$result.'></image>';
 });
 
@@ -62,7 +62,7 @@ function getWxAccessToken(){
     //     return $_SESSION['access_token_'.$appid];
     // }else{
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$appid."&secret=".$appsecret;
-        $access_token = $this->makeRequest($url);
+        $access_token = makeRequest($url);
 		$access_token = json_decode($access_token['result'],true);
 		// $_SESSION['access_token_'.$appid] = $access_token;
 		// $_SESSION['expire_time_'.$appid] = time()+7000;
