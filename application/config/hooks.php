@@ -37,9 +37,9 @@ Cloud::define("pay", function($params, $user) {
 });
 
 
-// ----------生成小程序码
+// ----------生成小程序码 云函数
 Cloud::define("getImg", function($params, $user) {
-	$ACCESS_TOKEN=$this->getWxAccessToken();
+	$ACCESS_TOKEN=getWxAccessToken();
 	$url="https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=".$ACCESS_TOKEN['access_token'];
 	$post_data=
 	array(
@@ -53,7 +53,9 @@ Cloud::define("getImg", function($params, $user) {
 });
 
 function getWxAccessToken(){
-    $appid='wxbde3a54158b3bf14';
+	// 小程序appid
+	$appid='wxbde3a54158b3bf14';
+	// 小程序secret
     $appsecret='6008eb5ab12af1e8e784e64d58e7f8e3';
     if(Session::get('access_token_'.$appid) && Session::get('expire_time_'.$appid)>time()){
         return Session::get('access_token_'.$appid);
@@ -174,7 +176,7 @@ function getJsApiParameters($UnifiedOrderResult) {
 	|| !array_key_exists("prepay_id", $UnifiedOrderResult)
 	|| $UnifiedOrderResult['prepay_id'] == "")
 	{
-		throw new WxPayException("参数错误2333");
+		throw new WxPayException("参数错误");
 	}
 	$jsapi = new WxPayJsApiPay();
 	$jsapi->SetAppid($UnifiedOrderResult["appid"]);
