@@ -56,17 +56,25 @@ function getWxAccessToken(){
 	// 小程序appid
 	$appid='wxbde3a54158b3bf14';
 	// 小程序secret
-    $appsecret='6008eb5ab12af1e8e784e64d58e7f8e3';
-    if(Session::get('access_token_'.$appid) && Session::get('expire_time_'.$appid)>time()){
-        return Session::get('access_token_'.$appid);
+	$appsecret='6008eb5ab12af1e8e784e64d58e7f8e3';//$_SESSION['user']
+	
+    if($_SESSION['access_token_'.$appid]  && $_SESSION['expire_time_'.$appid]>time()){
+        return $_SESSION['access_token_'.$appid];
     }else{
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=".$appid."&secret=".$appsecret;
         $access_token = $this->makeRequest($url);
-        $access_token = json_decode($access_token['result'],true);
-        Session::set('access_token_'.$appid,$access_token);
-        Session::set('expire_time_'.$appid,time()+7000);
+		$access_token = json_decode($access_token['result'],true);
+		$_SESSION['access_token_'.$appid] = $access_token;
+		$_SESSION['expire_time_'.$appid] = time()+7000;
         return $access_token;
-    }
+	}
+}
+
+//二进制转图片image/png
+function data_uri($contents, $mime)
+{
+$base64   = base64_encode($contents);
+return ('data:' . $mime . ';base64,' . $base64);
 }
 // /**
 //  * 发起http请求
@@ -161,12 +169,6 @@ function send_post( $url, $post_data ) {
 	return $result;
 }
 
-//二进制转图片image/png
-function data_uri($contents, $mime)
-{
-    $base64   = base64_encode($contents);
-    return ('data:' . $mime . ';base64,' . $base64);
-}
 
 //----------生成小程序码end
 
