@@ -47,9 +47,11 @@ Cloud::define("getImg", function($params, $user) {
 		'scene'=>'34,S853EE4QRP'//34%2CS853EE4QRP
 	);
 	$post_data=json_encode($post_data);
-    $data=send_post($url,$post_data);
+	$data=send_post($url,$post_data);
+	var_dump($data);
 	$result=data_uri($data,'image/png');
-	return $result;
+	var_dump($result);
+	// return $result;
 });
 
 function getWxAccessToken(){
