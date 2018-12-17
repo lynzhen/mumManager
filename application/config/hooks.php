@@ -43,13 +43,13 @@ Cloud::define("getImg", function($params, $user) {
 	$url="https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=".$ACCESS_TOKEN['access_token'];
 	$post_data=
 	array(
-		'page'=>'pages/caregory/index',
+		'page'=>'pages/Index/Index',
 		'scene'=>'34,S853EE4QRP'//34%2CS853EE4QRP
 	);
 	$post_data=json_encode($post_data);
     $data=send_post($url,$post_data);
 	$result=data_uri($data,'image/png');
-	return '<image src='.$result.'></image>';
+	return $result;
 });
 
 function getWxAccessToken(){
