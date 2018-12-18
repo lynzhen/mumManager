@@ -40,6 +40,7 @@ Cloud::define("pay", function($params, $user) {
 // ----------生成小程序码 云函数
 Cloud::define("getImg", function($params, $user) {
 	$ACCESS_TOKEN=getWxAccessToken();
+	var_dump($ACCESS_TOKEN);
 	$url="https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=".$ACCESS_TOKEN['access_token'];
 	$post_data=
 	array(
