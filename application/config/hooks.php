@@ -57,12 +57,11 @@ Cloud::define("getImg", function($params, $user) {
 
 // ----------上传图片 云函数start 12.18 zhangya
 Cloud::define("uploadFile", function($params, $user) {
-    $file = json_decode($params);// 图片上传
-    var_dump($file);
-
-    $file = File::createWithLocalFile($_FILES['file']['tmp_name'], $_FILES['file']['type']);// 保存图片
-    $file->save();
-    echo json_encode(['url' => $file->get('url')]);
+//    $file = json_decode($params);// 图片上传
+//    //var_dump($file);
+//    $file = File::createWithLocalFile($_FILES['file']['tmp_name'], $_FILES['file']['type']);// 保存图片
+//    $file->save();
+//    echo json_encode(['url' => $file->get('url')]);
 
 });
 //$app->post("/upload", function($req, $res) {
