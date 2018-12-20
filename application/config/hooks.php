@@ -12,6 +12,16 @@ use \LeanCloud\Storage\CookieStorage;
  * Define cloud functions and hooks on LeanCloud
  */
 
+// ----------上传图片 云函数start 12.18 zhangya
+Cloud::define("uploadFile", function($params, $user) {
+//    $file = json_decode($params);// 图片上传
+//    //var_dump($file);
+//    $file = File::createWithLocalFile($_FILES['file']['tmp_name'], $_FILES['file']['type']);// 保存图片
+//    $file->save();
+//    echo json_encode(['url' => $file->get('url')]);
+    return $params;
+
+});
 // /1.1/functions/sayHello
 Cloud::define("pay", function($params, $user) {
 	// var_dump($user);
@@ -55,15 +65,6 @@ Cloud::define("getImg", function($params, $user) {
 	// return $result;
 });
 
-// ----------上传图片 云函数start 12.18 zhangya
-Cloud::define("uploadFile", function($params, $user) {
-//    $file = json_decode($params);// 图片上传
-//    //var_dump($file);
-//    $file = File::createWithLocalFile($_FILES['file']['tmp_name'], $_FILES['file']['type']);// 保存图片
-//    $file->save();
-//    echo json_encode(['url' => $file->get('url')]);
-
-});
 //$app->post("/upload", function($req, $res) {
 //    if (isset($_FILES["iconImage"]) && $_FILES["iconImage"]["size"] != 0) {
 //        $file = File::createWithLocalFile(
